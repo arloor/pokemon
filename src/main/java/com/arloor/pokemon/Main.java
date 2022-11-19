@@ -92,6 +92,7 @@ public class Main {
     }
 
     public static final void hint() {
+        System.out.println("==================================");
         System.out.println("请输入命令：");
     }
 
