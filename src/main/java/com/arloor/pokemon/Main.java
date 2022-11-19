@@ -2,6 +2,7 @@ package com.arloor.pokemon;
 
 import com.google.common.collect.Sets;
 
+import javax.sound.midi.Soundbank;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -63,21 +64,23 @@ public class Main {
                 }
             }
         }
+        Set<String> beCounted = new HashSet<>();
         for (String s : toFangshou) {
             if (s.startsWith("太晶")) {
                 s = s.substring(2);
             }
-            Set<String> needDelete = Domain.优势.getOrDefault(s, new HashSet<>());
-            for (String s1 : needDelete) {
-                cells.remove(s1);
-            }
+            beCounted.addAll(Domain.优势.getOrDefault(s, new HashSet<>()));
+        }
+        for (String s1 : beCounted) {
+            cells.remove(s1);
         }
         System.out.println("可以选用：" + cells.entrySet().stream().sorted(new Comparator<Map.Entry<String, AtomicInteger>>() {
             @Override
             public int compare(Map.Entry<String, AtomicInteger> o1, Map.Entry<String, AtomicInteger> o2) {
-                return o2.getValue().get()-o1.getValue().get();
+                return o2.getValue().get() - o1.getValue().get();
             }
         }).map(entry -> entry.getKey() + ":" + entry.getValue()).collect(Collectors.joining(",")));
+        System.out.println("不要选用：" + String.join(",", beCounted)+"，会被克制");
     }
 
     private static void team(List<String> params) {
