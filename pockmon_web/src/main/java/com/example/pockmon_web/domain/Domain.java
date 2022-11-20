@@ -1,4 +1,4 @@
-package com.arloor.pokemon;
+package com.example.pockmon_web.domain;
 
 import com.google.common.collect.Sets;
 
